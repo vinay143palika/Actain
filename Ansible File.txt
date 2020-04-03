@@ -1,0 +1,85 @@
+Set up and configuration 
+
+1) AWS Ec2 instance 3-4 nodes
+2) Rhel or centos or ubuntu
+3) Opensource Ansible packages from www.ansible.com
+4)Multi Tab putty tool
+
+Master
+node1
+node2
+node3
+
+Go to Master Server
+
+Run the below commands
+sudo su -
+clear
+useradd test
+passed test
+
+pwd
+ 
+cd /etc/
+cd ssh
+ls -l
+vi sshd_config
+ insert I remove #"hashtags" for 
+
+PasswordAuthentication yes
+PermitRootLogin yes
+
+wq!
+systemctl restart sshd or service sshd restart
+pwd
+logout
+ssh test@your ip or public dns
+logout
+# sudo su -
+vi /etc/sudoers
+ press I to insert scroll down tell end and give this below command
+ec2-user  ALL=(ALL)     NOPASSWD: ALL
+test      ALL=(ALL)     NOPASSWD: ALL
+wq!
+
+
+do the same steps on nodes
+logout
+ssh test@ip address
+sudo su -
+whoami
+su - test
+ssh test@node ip
+ssh-keygen  
+ssh-copy-id node1 id
+ssh-copy-id node2 id
+ssh-copy-id node3 id
+ssh test@ nodeip(test)
+
+Download and install Ansible
+
+cat /etc/redhat-release
+sudo yum repo list
+cd /etc/yum.repo.d/
+ls
+more redhat .repo
+sudo yum install wget
+cd ~ test
+wget https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-7.noarch.rpm
+sudo rpm -ivh epel-release-7-7.noarch.rpm
+sudo yum install -y
+ansible --version
+ansible all --list-hosts
+sudo vi hosts
+insert I 
+[local]
+localhost
+[apacheweb]
+node1ip
+node2ip
+[appserver]
+node3ip
+wq!
+ansible all --list-hosts
+ansible apacheweb -m ping
+

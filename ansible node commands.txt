@@ -1,0 +1,42 @@
+node1 
+sudo su -
+clear
+useradd test
+passwd test
+
+cd /etc/ssh
+vi sshd_config
+ insert I remove #"hashtags" for 
+
+PasswordAuthentication yes
+PermitRootLogin yes
+systemctl restart sshd or service sshd restart
+pwd
+logout
+ssh test@your ip or public dns
+
+# vi /etc/sudoers
+ press I to insert scroll down tell end and give this below command
+ec2-user  ALL=(ALL)     NOPASSWD: ALL
+test      ALL=(ALL)     NOPASSWD: ALL
+wq!
+
+logout
+su - test
+ssh-keygen
+node1
+ssh-copy-id masterip
+ssh-copy-id node2 ip
+ssh-copy-id node3 ip
+
+node2
+ssh-copy-id masterip
+ssh-copy-id node1 ip
+ssh-copy-id node3 ip
+
+node3
+ssh-copy-id masterip
+ssh-copy-id node1 ip
+ssh-copy-id node2 ip
+ 
+Sudo install ansible  -y -- do it in all nodes

@@ -1,0 +1,80 @@
+
+Launch Two Ec2 Instance on AWS (As your wish)... Here I am using Redhat linux
+
+Master Host Steps:
+sudo su -
+yum update
+yum install ansible
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install ansible
+ansible --version
+useradd ansadmin
+passwd ansadmin
+ do the same in client system also
+
+provide sudo access
+ visudo
+ec2-user  ALL=(ALL)   NOPASSWD: ALL
+ansadmin  ALL=(ALL)   NOPASSWD: ALL
+DO THE SAME IN HOST SYSTEM
+
+cd/etc/ssh
+ls
+vi ssh_config
+give password authenication and save
+
+vi sshd_config
+give password authenication and save
+vi ssh_config
+service sshd restart
+
+do the same thing on client system also
+
+
+login as ansadmin
+ssh-keygen
+ls -la
+cd .ssh
+ls
+copy key into host system
+ssh-copy-id <host ip address> add key
+ssh <host ip address>
+exit
+ sudo vi /etc/ansible/hosts
+[all_hosts]
+<host ip address> save
+ansible all -m ping
+ls
+cd ..
+pwdyum
+ cat > hello.html
+<h1> hello everyone... welcome </h1>
+ansible all -m copy -a "src=/home/ansadmin/hello.html dest=/home/ansadmin" enter
+
+ansible -s all -m yum -a "name=httpd state=latest"
+ansible -s all -m service -a "name=httpd state=started"
+
+
+
+
+Host Steps:
+sudo su -
+yum update -y
+
+sudo su -
+useradd ansadmin
+passwd ansadmin
+
+provide sudo access
+ visudo
+ec2-user  ALL=(ALL)   NOPASSWD: ALL
+ansadmin  ALL=(ALL)   NOPASSWD: ALL and save
+
+vi sshd_config
+give password authenication and save
+vi ssh_config
+service sshd restart
+if config -a(use private ips only)
+cd /home/ansadmin/
+ls
+
